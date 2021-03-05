@@ -179,7 +179,7 @@ class DEC(object):
 
         # begin pretraining
         t0 = time()
-        self.autoencoder.fit(x, x, batch_size=batch_size, epochs=epochs) #, callbacks=cb
+        self.autoencoder.fit(x, x, batch_size=batch_size, epochs=epochs, callbacks=cb) #
         print('Pretraining time: %ds' % round(time() - t0))
         self.autoencoder.save_weights(save_dir + 'ae_weights_%s.h5' % nclusters)
         print('Pretrained weights are saved to %s' % save_dir)
@@ -244,7 +244,7 @@ class DEC(object):
                     q_t = self.model.predict(t_x, verbose=0)
                     p_t = self.target_distribution(q_t)
                 # evaluate the clustering performance
-                '''if y is not None:
+                if y is not None:
                     acc = np.round(metrics.acc(y, y_pred), 5)
                     nmi = np.round(metrics.nmi(y, y_pred), 5)
                     ari = np.round(metrics.ari(y, y_pred), 5)
@@ -268,16 +268,16 @@ class DEC(object):
                           ' ; test loss=', t_loss, ' ; relative loss=', loss / t_loss)
                 else:
                     t_loss = np.round(t_loss, 5)
-                    print('Iter %d:' % ite, ' ; test loss=', t_loss, ' ; relative loss=', loss / t_loss)'''
+                    print('Iter %d:' % ite, ' ; test loss=', t_loss, ' ; relative loss=', loss / t_loss)
 
                 # check stop criterion
                 delta_label = np.sum(y_pred != y_pred_last).astype(np.float32) / y_pred.shape[0]
                 y_pred_last = np.copy(y_pred)
-                '''if ite > 0 and delta_label < tol:
+                if ite > 0 and delta_label < tol:
                     print('delta_label ', delta_label, '< tol ', tol)
                     print('Reached tolerance threshold. Stopping training.')
                     logfile.close()
-                    break'''
+                    break
 
             # train on batch
             # if index == 0:
@@ -324,17 +324,6 @@ if __name__ == "__main__":
 
     if not os.path.exists(args.save_dir):
         os.makedirs(args.save_dir)
-
-    '''x, y = np.load('/home/elahe/NortfaceProject/codes/TransferLearning/keras/data/cifar10_featuresx_train.npy'), \
-           np.load('/home/elahe/NortfaceProject/codes/TransferLearning/keras/data/cifar10_featuresy_train.npy')
-
-    x_test, y_test = np.load(
-        '/home/elahe/NortfaceProject/codes/TransferLearning/keras/data/cifar10_featuresx_test.npy'), \
-                     np.load('/home/elahe/NortfaceProject/codes/TransferLearning/keras/data/cifar10_featuresy_test.npy')
-
-    x_, y_ = np.load('/home/elahe/NortfaceProject/codes/DEC-keras/data/8chan_pol/featuresx.npy'), \
-           np.load('/home/elahe/NortfaceProject/codes/DEC-keras/data/8chan_pol/featuresy.npy')'''
-
 
     x_, y_ = np.load('data/chan/8chan_pol/VGG16/block3/featuresx.npy'), \
            np.load('data/chan/8chan_pol/VGG16/block3/featuresy.npy')

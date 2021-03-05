@@ -5,6 +5,12 @@ from keras.applications.vgg16 import preprocess_input, VGG16
 from keras.models import Model
 import tensorflow as tf
 import matplotlib.pyplot as plt
+from torch.utils.data import (DataLoader, RandomSampler, TensorDataset, SequentialSampler)
+from torchvision.datasets import ImageFolder
+from torchvision import datasets
+from torchvision import transforms
+from PIL import Image
+import numpy as np
 
 im_h = 224
 
@@ -485,16 +491,6 @@ def load_chan(dataloader, batch, N, VGG16=True):
             f.write("%s\n" % item)
 
     return features, targets
-
-
-from torch.utils.data import (DataLoader, RandomSampler, TensorDataset, SequentialSampler)
-from torchvision.datasets import ImageFolder
-from torchvision import datasets
-from torchvision import transforms
-import tensorflow as tf
-from PIL import Image
-import numpy as np
-
 
 
 class ImageFolderWithPaths(datasets.ImageFolder):

@@ -26,13 +26,6 @@ for db in ['mnist']: #'usps', 'stl', 'reuters10k',, 'mnist', 'fmnist'
 
     x, y, x_test, y_test = load_data(db)
 
-    '''x, y = np.load('/home/elahe/NortfaceProject/codes/TransferLearning/keras/data/cifar10_featuresx_train.npy'), \
-           np.load('/home/elahe/NortfaceProject/codes/TransferLearning/keras/data/cifar10_featuresy_train.npy')
-
-    x_test, y_test = np.load(
-        '/home/elahe/NortfaceProject/codes/TransferLearning/keras/data/cifar10_featuresx_test.npy'), \
-                     np.load('/home/elahe/NortfaceProject/codes/TransferLearning/keras/data/cifar10_featuresy_test.npy')'''
-
     n_clusters = len(np.unique(y))
 
     print('number of clusters: ', n_clusters)
